@@ -13,7 +13,7 @@ public class Alarme
     	this.capteur = capteur;
     	this.estAllume = false;
     }
-    public void check()
+    public void verifier()
     {
         double valeurPression = capteur.afficherProchaineValeurPression();
 

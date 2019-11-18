@@ -23,7 +23,7 @@ public class AlarmTest{
 		when(sensor.afficherProchaineValeurPression()).thenReturn(7.0);
 		
 		this.alarm = new Alarme(sensor);
-		this.alarm.check();
+		this.alarm.verifier();
 		assertTrue(this.alarm.estAllume());
 	}
 	
@@ -34,7 +34,7 @@ public class AlarmTest{
 		when(sensor.afficherProchaineValeurPression()).thenReturn(37.0);
 		
 		this.alarm = new Alarme(sensor);
-		this.alarm.check();
+		this.alarm.verifier();
 		assertTrue(this.alarm.estAllume());
 	}
 	
@@ -44,7 +44,7 @@ public class AlarmTest{
 		when(sensor.afficherProchaineValeurPression()).thenReturn(20.0);
 		
 		this.alarm = new Alarme(sensor);
-		this.alarm.check();
+		this.alarm.verifier();
 		assertFalse(this.alarm.estAllume());
 	}
 	
@@ -54,8 +54,8 @@ public class AlarmTest{
 		when(sensor.afficherProchaineValeurPression()).thenReturn(30.0).thenReturn(20.0);
 		
 		this.alarm = new Alarme(sensor);
-		this.alarm.check();
-		this.alarm.check();
+		this.alarm.verifier();
+		this.alarm.verifier();
 		
 		assertTrue(this.alarm.estAllume());
 	}
