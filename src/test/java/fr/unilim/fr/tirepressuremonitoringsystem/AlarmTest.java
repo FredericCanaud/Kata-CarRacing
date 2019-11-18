@@ -5,58 +5,58 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import fr.unilim.iut.tirepressuremonitoringsystem.Alarm;
-import fr.unilim.iut.tirepressuremonitoringsystem.Sensor;
+import fr.unilim.iut.tirepressuremonitoringsystem.Alarme;
+import fr.unilim.iut.tirepressuremonitoringsystem.Capteur;
 
 import static org.mockito.Mockito.mock;  
 import static org.mockito.Mockito.when;
 
 public class AlarmTest{
 	
-	public Alarm alarm;
+	public Alarme alarm;
 	
 	
 	@Test
 	public void AlarmeSeDeclenchePourPressionTropBasse() {
 		
-		Sensor sensor = mock(Sensor.class);
-		when(sensor.popNextPressurePsiValue()).thenReturn(7.0);
+		Capteur sensor = mock(Capteur.class);
+		when(sensor.afficherProchaineValeurPression()).thenReturn(7.0);
 		
-		this.alarm = new Alarm(sensor);
+		this.alarm = new Alarme(sensor);
 		this.alarm.check();
-		assertTrue(this.alarm.isAlarmOn());
+		assertTrue(this.alarm.estAllume());
 	}
 	
 	@Test
 	public void AlarmeSeDeclenchePourPressionTropHaute() {
 		
-		Sensor sensor = mock(Sensor.class);
-		when(sensor.popNextPressurePsiValue()).thenReturn(37.0);
+		Capteur sensor = mock(Capteur.class);
+		when(sensor.afficherProchaineValeurPression()).thenReturn(37.0);
 		
-		this.alarm = new Alarm(sensor);
+		this.alarm = new Alarme(sensor);
 		this.alarm.check();
-		assertTrue(this.alarm.isAlarmOn());
+		assertTrue(this.alarm.estAllume());
 	}
 	
 	@Test
 	public void AlarmeSeDeclenchePas() {
-		Sensor sensor = mock(Sensor.class);
-		when(sensor.popNextPressurePsiValue()).thenReturn(20.0);
+		Capteur sensor = mock(Capteur.class);
+		when(sensor.afficherProchaineValeurPression()).thenReturn(20.0);
 		
-		this.alarm = new Alarm(sensor);
+		this.alarm = new Alarme(sensor);
 		this.alarm.check();
-		assertFalse(this.alarm.isAlarmOn());
+		assertFalse(this.alarm.estAllume());
 	}
 	
 	@Test
 	public void AlarmeResteDeclenche() {
-		Sensor sensor = mock(Sensor.class);
-		when(sensor.popNextPressurePsiValue()).thenReturn(30.0).thenReturn(20.0);
+		Capteur sensor = mock(Capteur.class);
+		when(sensor.afficherProchaineValeurPression()).thenReturn(30.0).thenReturn(20.0);
 		
-		this.alarm = new Alarm(sensor);
+		this.alarm = new Alarme(sensor);
 		this.alarm.check();
 		this.alarm.check();
 		
-		assertTrue(this.alarm.isAlarmOn());
+		assertTrue(this.alarm.estAllume());
 	}
 }
