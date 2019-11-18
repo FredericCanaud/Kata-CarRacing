@@ -2,24 +2,22 @@ package fr.unilim.iut.tirepressuremonitoringsystem;
 
 public class Alarme
 {
-    private double valeurPressionMinimale;
-    private double valeurPressionMaximale;
+
     private Capteur capteur;
     private boolean estAllume;
+    private IntervalleSecurite intervalle;
     
-    public Alarme(Capteur capteur) {
-    	this.valeurPressionMinimale = 17;
-    	this.valeurPressionMaximale = 21;
+    public Alarme(Capteur capteur, IntervalleSecurite intervalle) {
     	this.capteur = capteur;
     	this.estAllume = false;
+    	this.intervalle = intervalle;
     }
     public void verifier()
     {
-        double valeurPression = capteur.afficherProchaineValeurPression();
+        double valeurPression = this.capteur.afficherProchaineValeur();
 
-        if (valeurPression < valeurPressionMinimale || valeurPressionMaximale < valeurPression)
-        {
-            estAllume = true;
+        if (!this.intervalle.estComprise(valeurPression)){
+        	this.estAllume = true;
         }
     }
 

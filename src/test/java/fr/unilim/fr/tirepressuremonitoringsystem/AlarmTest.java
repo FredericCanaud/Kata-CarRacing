@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import fr.unilim.iut.tirepressuremonitoringsystem.Alarme;
 import fr.unilim.iut.tirepressuremonitoringsystem.Capteur;
+import fr.unilim.iut.tirepressuremonitoringsystem.IntervalleSecurite;
 
 import static org.mockito.Mockito.mock;  
 import static org.mockito.Mockito.when;
@@ -20,9 +21,9 @@ public class AlarmTest{
 	public void AlarmeSeDeclenchePourPressionTropBasse() {
 		
 		Capteur sensor = mock(Capteur.class);
-		when(sensor.afficherProchaineValeurPression()).thenReturn(7.0);
+		when(sensor.afficherProchaineValeur()).thenReturn(7.0);
 		
-		this.alarm = new Alarme(sensor);
+		this.alarm = new Alarme(sensor, new IntervalleSecurite(17,21));
 		this.alarm.verifier();
 		assertTrue(this.alarm.estAllume());
 	}
@@ -31,9 +32,9 @@ public class AlarmTest{
 	public void AlarmeSeDeclenchePourPressionTropHaute() {
 		
 		Capteur sensor = mock(Capteur.class);
-		when(sensor.afficherProchaineValeurPression()).thenReturn(37.0);
+		when(sensor.afficherProchaineValeur()).thenReturn(37.0);
 		
-		this.alarm = new Alarme(sensor);
+		this.alarm = new Alarme(sensor, new IntervalleSecurite(17,21));
 		this.alarm.verifier();
 		assertTrue(this.alarm.estAllume());
 	}
@@ -41,9 +42,9 @@ public class AlarmTest{
 	@Test
 	public void AlarmeSeDeclenchePas() {
 		Capteur sensor = mock(Capteur.class);
-		when(sensor.afficherProchaineValeurPression()).thenReturn(20.0);
+		when(sensor.afficherProchaineValeur()).thenReturn(20.0);
 		
-		this.alarm = new Alarme(sensor);
+		this.alarm = new Alarme(sensor, new IntervalleSecurite(17,21));
 		this.alarm.verifier();
 		assertFalse(this.alarm.estAllume());
 	}
@@ -51,9 +52,9 @@ public class AlarmTest{
 	@Test
 	public void AlarmeResteDeclenche() {
 		Capteur sensor = mock(Capteur.class);
-		when(sensor.afficherProchaineValeurPression()).thenReturn(30.0).thenReturn(20.0);
+		when(sensor.afficherProchaineValeur()).thenReturn(30.0).thenReturn(20.0);
 		
-		this.alarm = new Alarme(sensor);
+		this.alarm = new Alarme(sensor, new IntervalleSecurite(17,21));
 		this.alarm.verifier();
 		this.alarm.verifier();
 		
